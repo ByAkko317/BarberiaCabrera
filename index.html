@@ -20,7 +20,8 @@
 
     <div class="container">
         <div id="main-menu">
-            <button class="link-button boton fade-in" onclick="abrirFormulario()">
+            <button class="link-button boton fade-in" id="btn_form" 
+            onclick="window.open('https://turnitos.app', '_blank')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -30,7 +31,8 @@
                 </svg>
                 Agendar Turno
             </button>
-            <button class="link-button boton fade-in">
+            <button class="link-button boton fade-in" id="btn_instagram" 
+            onclick="window.open('https://www.instagram.com/emanuelcabrera.art/', '_blank')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -38,7 +40,8 @@
                 </svg>
                 Ver Trabajos
             </button>
-            <button class="link-button boton fade-in">
+            <button class="link-button boton fade-in" id="btn_ubi" 
+            onclick="window.open('https://www.google.com/maps/place/Peluqueria+Emanuel+Cabrera/@-32.9159864,-68.8642972,17z/data=!3m1!4b1!4m6!3m5!1s0x967e09007d0f0f59:0x2cbb5ae17d8a9d57!8m2!3d-32.9159864!4d-68.8617223!16s%2Fg%2F11x8q_6ft2?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D', '_blank')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -46,30 +49,17 @@
                 </svg>
                 Cómo llegar
             </button>
-        </div>
-
-        <div id="form-container">
-            <div class="form-header">
-                <h2 style="font-size: 1.2rem;">Reserva tu lugar</h2>
-                <button class="close-btn" onclick="cerrarFormulario()">✕</button>
-            </div>
-            <form id="appointmentForm">
-                <label>Nombre y Apellido</label>
-                <input type="text" id="nombre_completo" placeholder="Ej: Juan Pérez" required>
-
-                <label>Fecha y Hora</label>
-                <input type="datetime-local" id="fecha_hora" required>
-                <small id="error-horario" class="error-message"
-                    style="display: none; color: #ff4d4d; margin-top: 5px; font-size: 0.8rem;"></small>
-
-                <label>WhatsApp</label>
-                <input type="tel" id="whatsapp" placeholder="261...">
-
-                <label>Correo</label>
-                <input type="email" id="correo" placeholder="alguien@example.com">
-
-                <button type="submit" id="submit-btn" class="submit-btn">CONFIRMAR TURNO</button>
-            </form>
+            <button class="link-button boton fade-in" id="btn_contact" 
+            onclick="redirigirWhatsApp()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Mensaje Directo a WhatsApp
+            </button>
         </div>
     </div>
 
@@ -101,121 +91,19 @@
         </div>
     </section>
 
+<script>
+    function redirigirWhatsApp() {
+        const numeroTelefono = "5492615751537"; 
+        const mensaje = "Hola, me gustaría agendar un turno, te escribo desde la web."; // Mensaje predefinido
+        const url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+    }
+</script>
+
 </body>
 
 <footer>
-    <p>&copy; 2026 Peluquería prestige</p>
+    <p>&copy; 2026 Cabrera Colorimetría Extrema</p>
 </footer>
-
-<div id="custom-modal" class="modal-overlay">
-    <div class="modal-box">
-        <p>¿Deseas cerrar el formulario?<br>
-            <span>Los datos no se guardarán.</span>
-        </p>
-
-        <div class="modal-actions">
-            <button id="confirm-close" class="modal-btn primary">Aceptar</button>
-            <button id="cancel-close" class="modal-btn secondary">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<script>
-    const formContainer = document.getElementById('form-container');
-    const mainMenu = document.getElementById('main-menu');
-    const inputFecha = document.getElementById('fecha_hora');
-    const errorMsg = document.getElementById('error-horario');
-    const submitBtn = document.getElementById('submit-btn');
-
-    // Función para abrir/cerrar
-    function abrirFormulario() {
-        mainMenu.style.display = 'none';
-        formContainer.classList.add("active");
-
-        // Configurar fecha mínima (hoy)
-        const hoy = new Date().toISOString().slice(0, 16);
-        inputFecha.min = hoy;
-    }
-
-    /*cartel para salir de formulario*/
-
-    function cerrarFormulario() {
-        abrirModalConfirmacion();
-    }
-    const modal = document.getElementById("custom-modal");
-    const confirmClose = document.getElementById("confirm-close");
-    const cancelClose = document.getElementById("cancel-close");
-
-    function abrirModalConfirmacion() {
-        const modal = document.getElementById("custom-modal");
-        modal.style.pointerEvents = "all"; // Fuerza la interacción
-        modal.classList.add("active");
-
-        // Aseguramos que la caja escale correctamente
-        const modalBox = modal.querySelector(".modal-box");
-        modalBox.style.opacity = "1";
-        modalBox.style.transform = "scale(1)";
-    }
-    function cerrarModal() {
-        modal.classList.add("closing");
-
-        setTimeout(() => {
-            modal.classList.remove("active", "closing");
-        }, 250);
-    }
-
-
-    cancelClose.addEventListener("click", cerrarModal);
-
-    confirmClose.addEventListener("click", () => {
-        cerrarModal();
-
-        setTimeout(() => {
-            formContainer.classList.remove('active');
-            mainMenu.style.display = 'block';
-            document.getElementById('appointmentForm').reset();
-        }, 250);
-    });
-
-    // Validación de rango horario (9 a 18)
-    inputFecha.addEventListener('input', (e) => {
-        const date = new Date(e.target.value);
-        const hour = date.getHours();
-
-        const errorMsg = document.getElementById('error-horario');
-
-        if (hour < 9 || hour >= 18) {
-            errorMsg.textContent = "⚠️ Seleccioná un horario entre las 09:00 y las 18:00.";
-            errorMsg.style.display = "block";
-            e.target.classList.add("input-error");
-            submitBtn.disabled = true;
-        } else {
-            errorMsg.style.display = "none";
-            e.target.classList.remove("input-error");
-            submitBtn.disabled = false;
-        }
-    });
-
-    // Envío a n8n
-    document.getElementById('appointmentForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const payload = {
-            cliente: document.getElementById('nombre_completo').value,
-            fecha_hora: document.getElementById('fecha_hora').value,
-            telefono: document.getElementById('whatsapp').value
-        };
-
-        console.log("Enviando a n8n...", payload);
-        alert("Enviando datos... n8n se encargará de agendar en Google Calendar.");
-
-
-    });
-</script>
-</body>
 
 </html>
