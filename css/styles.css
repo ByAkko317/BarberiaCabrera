@@ -20,6 +20,12 @@
     box-sizing: border-box;
 }
 
+.titulo-principal img {
+  max-width: 100%;
+  width: 500px;
+  height: auto;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
@@ -39,6 +45,15 @@ body {
     align-items: center;
 
     position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+    pointer-events: none;
 }
 
 svg {
@@ -78,6 +93,8 @@ header {
     width: 100%;
     text-align: center;
     padding: 40px;
+    position: relative;
+    z-index: 1;
 }
 
 .link-button {
@@ -356,6 +373,7 @@ input::-webkit-calendar-picker-indicator:hover {
         background-attachment: scroll;
     }
 
+    
     header h1 {
         font-size: 1.5rem;
     }
